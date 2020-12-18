@@ -1,0 +1,25 @@
+version: "3.9"
+services:
+  db-server:
+    image: postgres:alpine
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: "dbpaSSw0r)"
+      POSTGRES_USER: "dbuser"
+      POSTGRES_DB: "blink"
+    ports:
+      - "5432:5432"
+  app-server:
+    build: .
+    restart: on-failure
+    depends_on:
+      - "db-server"
+    environment:
+      DB_HOST: "db-server"
+      DB_USER: "dbuser"
+      DB_PASS: "dbpaSSw0r)"
+      DB_NAME: "blink"
+      DB_PORT: "5432"
+      SERVER_PORT: "8080"
+    ports:
+      - "8080:8080"

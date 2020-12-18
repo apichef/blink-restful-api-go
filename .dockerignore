@@ -1,0 +1,9 @@
+# source files
+README.me
+
+# git
+.git/
+.gitignore
+
+# IDE
+.idea/
