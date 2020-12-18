@@ -26,14 +26,44 @@ func New(repository repositories.BooksRepository) BooksController {
 	}
 }
 
+// GetAll godoc
+// @Summary Get books
+// @Description List all available books
+// @Tags books
+// @Accept  json
+// @Produce  json
+// @Success 200 {array} dtos.Book
+// @Failure 500 {object} httputil.HTTPError
+// @Router /books [get]
 func (controller *booksController) GetAll(context *gin.Context) {
 	responses.Ok(context, controller.repository.GetAll())
 }
 
+// GetBook godoc
+// @Summary Show a book
+// @Description get book by ID
+// @Tags books
+// @Accept  json
+// @Produce  json
+// @Param book path int true "Book ID"
+// @Success 200 {object} dtos.Book
+// @Failure 500 {object} httputil.HTTPError
+// @Router /books/{book} [get]
 func (controller *booksController) GetBook(context *gin.Context) {
 	responses.Ok(context, controller.repository.GetBook(context.Param("book")))
 }
 
+// Create godoc
+// @Summary Add a book
+// @Description add by json book
+// @Tags books
+// @Accept  json
+// @Produce  json
+// @Param book body dtos.CreateBookDto true "Add book"
+// @Success 200 {object} dtos.Book
+// @Failure 422 {object} httputil.HTTPError
+// @Failure 500 {object} httputil.HTTPError
+// @Router /books [post]
 func (controller *booksController) Create(context *gin.Context) {
 	var createBook dtos.CreateBookDto
 
